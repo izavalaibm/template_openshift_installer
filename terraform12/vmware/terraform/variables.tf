@@ -195,22 +195,6 @@ variable "ocp_control_vm_disk_size" {
   type = string
 }
 
-#variable "use_static_mac" {
-#  type = "string"
-#}
-
-#variable "mac_address_boot" {
-#  type = "list"
-#}
-
-#variable "mac_address_control" {
-#  type = "list"
-#}
-
-#variable "mac_address_compute" {
-#  type = "list"
-#}
-
 variable "control_plane_count" {
   type = string
 }
@@ -220,6 +204,14 @@ variable "compute_count" {
 }
 
 variable "pullsecret" {
+  type = string
+}
+
+variable "trustbundle" {
+  type = string
+}
+
+variable "imagecontent" {
   type = string
 }
 

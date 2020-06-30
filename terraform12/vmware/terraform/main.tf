@@ -191,6 +191,8 @@ module "vmware_ign_config" {
   vcenterdatacenter        = var.vsphere_datacenter
   vmwaredatastore          = var.infranode_vm_disk1_datastore
   pullsecret               = var.pullsecret
+  trustbundle              = var.trustbundle
+  imagecontent             = var.imagecontent
   vm_ipv4_private_address  = var.infra_private_ipv4_address
 }
 

@@ -517,6 +517,28 @@
       "group_name": "openshift_container_platform_info"
     },
     {
+      "name": "trustbundle",
+      "label": "Base64 encoded trusted certificate",
+      "type": "string",
+      "description": "Base64 encoded Truested certificate",
+      "required": true,
+      "secured": false,
+      "hidden": false,
+      "immutable": false,
+      "group_name": "openshift_container_platform_info"
+    },
+    {
+      "name": "imagecontent",
+      "label": "Base64 encoded Image Content Sources",
+      "type": "string",
+      "description": "Image Content Sources for Mirrored Image Repository",
+      "required": true,
+      "secured": false,
+      "hidden": false,
+      "immutable": false,
+      "group_name": "openshift_container_platform_info"
+    },
+    {
       "name": "vm_clone_timeout",
       "label": "Virtual Machine Clone Timeout",
       "type": "string",
