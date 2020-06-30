@@ -1,5 +1,5 @@
 provider "vsphere" {
-  version              = "~> 1.3"
+  version              = "version = "< 1.16.0"
   allow_unverified_ssl = "true"
 }
 
