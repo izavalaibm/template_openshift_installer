@@ -66,7 +66,7 @@ module "resource_pool" {
 }
 
 module "deployVM_infranode" {
-  source = "github.com/izavalaibm/template_openshift_modules.git//terraform12/vmware/vmware_infravm_provision?ref=4.2-mirrored-image"
+  source = "github.com/izavalaibm/template_openshift_modules.git//terraform12/vmware/vmware_infravm_provision?ref=4.2-mirrored_registry"
   
   #######
   vsphere_datacenter                 = var.vsphere_datacenter
