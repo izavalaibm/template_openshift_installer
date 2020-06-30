@@ -66,7 +66,7 @@ module "resource_pool" {
 }
 
 module "deployVM_infranode" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/vmware_infravm_provision?ref=4.2"
+  source = "github.com/izavalaibm/template_openshift_modules.git//terraform12/vmware/vmware_infravm_provision?ref=4.2-mirrored-image"
   
   #######
   vsphere_datacenter                 = var.vsphere_datacenter
@@ -499,8 +499,8 @@ module "get_compute_ip" {
   vm_os_private_key    = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
   vm_os_user           = var.infranode_vm_os_user
   vm_os_password       = var.infranode_vm_os_password
-  get_type			   = "compute"
-  control_nodes 	   = var.control_plane_count
+  get_type			       = "compute"
+  control_nodes 	     = var.control_plane_count
   compute_nodes        = var.compute_count
   bastion_host         = var.bastion_host
   bastion_user         = var.bastion_user
