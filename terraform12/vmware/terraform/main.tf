@@ -166,7 +166,7 @@ module "HAProxy-install" {
 }
 
 module "vmware_ign_config" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/vmware_ign_config?ref=4.2"
+  source = "github.com/izavalaibm/template_openshift_modules.git//terraform12/vmware/vmware_ign_config?ref=4.2-mirrored_registry"
   
 
   vm_ipv4_address          = var.infranode_ip
