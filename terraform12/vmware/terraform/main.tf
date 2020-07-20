@@ -66,7 +66,7 @@ module "resource_pool" {
 }
 
 module "deployVM_infranode" {
-  source = "github.com/izavalaibm/template_openshift_modules.git//terraform12/vmware/vmware_infravm_provision?ref=4.2-mirrored_registry"
+  source = "github.com/izavalaibm/template_openshift_modules.git//terraform12/vmware/vmware_infravm_provision?ref=4.2-mirror-proxy"
   
   #######
   vsphere_datacenter                 = var.vsphere_datacenter
@@ -166,7 +166,7 @@ module "HAProxy-install" {
 }
 
 module "vmware_ign_config" {
-  source = "github.com/izavalaibm/template_openshift_modules.git//terraform12/vmware/vmware_ign_config?ref=4.2-mirrored_registry"
+  source = "github.com/izavalaibm/template_openshift_modules.git//terraform12/vmware/vmware_ign_config?ref=4.2-mirror-proxy"
   
 
   vm_ipv4_address          = var.infranode_ip
