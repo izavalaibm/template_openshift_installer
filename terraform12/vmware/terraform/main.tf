@@ -51,14 +51,14 @@ data "vsphere_datacenter" "dc" {
 }
 
 module "folder" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/folder?ref=4.2"
+  source = "../modules/folder"
 
   path          = var.clustername
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
 module "resource_pool" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/resource_pool?ref=4.2"
+  source = "../modules/resource_pool"
   
   name            = var.clustername
   datacenter_id   = data.vsphere_datacenter.dc.id
@@ -66,7 +66,7 @@ module "resource_pool" {
 }
 
 module "deployVM_infranode" {
-  source = "github.com/izavalaibm/template_openshift_modules.git//terraform12/vmware/vmware_infravm_provision?ref=4.2-mirrored_registry"
+  source = "../modules/vmware_infravm_provision"
   
   #######
   vsphere_datacenter                 = var.vsphere_datacenter
@@ -112,7 +112,7 @@ module "deployVM_infranode" {
 }
 
 module "NFSServer-Setup" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/config_nfs_server?ref=4.2"
+  source = "../modules/config_nfs_server"
   
   vm_ipv4_address   = var.infranode_ip
   vm_os_private_key = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
@@ -133,7 +133,7 @@ module "NFSServer-Setup" {
 }
 
 module "HTTPServer-Setup" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/config_apache_web_server?ref=4.2"
+  source = "../modules/config_apache_web_server"
   
   vm_ipv4_address     = var.infranode_ip
   vm_os_private_key   = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
@@ -149,7 +149,7 @@ module "HTTPServer-Setup" {
 }
 
 module "HAProxy-install" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/config_lb_server?ref=4.2"
+  source = "../modules/config_lb_server"
   
   vm_ipv4_address     = var.infranode_ip
   vm_os_private_key   = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
@@ -166,7 +166,7 @@ module "HAProxy-install" {
 }
 
 module "vmware_ign_config" {
-  source = "github.com/izavalaibm/template_openshift_modules.git//terraform12/vmware/vmware_ign_config?ref=4.2-mirrored_registry"
+  source = "../modules/vmware_ign_config"
   
 
   vm_ipv4_address          = var.infranode_ip
@@ -197,7 +197,7 @@ module "vmware_ign_config" {
 }
 
 module "prepare_dns" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/config_dns?ref=4.2"
+  source = "../modules/config_dns"
   
   dns_server_ip  = var.infranode_ip
   vm_os_user     = var.infranode_vm_os_user
@@ -219,7 +219,7 @@ module "prepare_dns" {
 }
 
 module "prepare_dhcp" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/config_dns?ref=4.2"
+  source = "../modules/config_dns"
   
   dns_server_ip       = var.infranode_ip
   vm_os_user          = var.infranode_vm_os_user
@@ -244,7 +244,7 @@ module "prepare_dhcp" {
 }
 
 module "bootstrap" {
-  source                     = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/machine_boot?ref=4.2"
+  source                     = "../modules/machine_boot"
   
   wait_for_guest_net_timeout = var.vm_clone_timeout
   name                       = "bootstrap"
@@ -276,7 +276,7 @@ module "bootstrap" {
 }
 
 module "HAProxy-config-boot" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/config_lb_server?ref=4.2"
+  source = "../modules/config_lb_server"
   
   vm_ipv4_address                = var.infranode_ip
   vm_os_private_key              = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
@@ -295,7 +295,7 @@ module "HAProxy-config-boot" {
 }
 
 module "wait_for_master_api_url" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/wait_for_api_url?ref=4.2"
+  source = "../modules/wait_for_api_url"
   
   vm_ipv4_address     = var.infranode_ip
   vm_os_private_key   = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
@@ -314,7 +314,7 @@ module "wait_for_master_api_url" {
 }
 
 module "control_plane" {
-  source                     = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/machine_boot?ref=4.2"
+  source                     = "../modules/machine_boot"
   
   wait_for_guest_net_timeout = var.vm_clone_timeout
   name                       = "control-plane"
@@ -346,7 +346,7 @@ module "control_plane" {
  }
  
  module "get_control_ip" {
-  source               = "git::https://github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/get_permanent_ip?ref=4.2" 
+  source               = "../modules/get_permanent_ip" 
 
   vm_ipv4_address 	   = var.infranode_ip
   vm_os_private_key    = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
@@ -365,7 +365,7 @@ module "control_plane" {
 }
  
 module "set_dns_control" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/config_dns?ref=4.2"
+  source = "../modules/config_dns"
   
   dns_server_ip  = var.infranode_ip
   vm_os_user     = var.infranode_vm_os_user
@@ -389,7 +389,7 @@ module "set_dns_control" {
 }
 
 module "monitor_controlplane_bootstrap" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/monitor_controlplane_bootstrap?ref=4.2"
+  source = "../modules/monitor_controlplane_bootstrap"
   
   vm_ipv4_address     = var.infranode_ip
   vm_os_private_key   = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
@@ -406,7 +406,7 @@ module "monitor_controlplane_bootstrap" {
 }
 
 module "HAProxy-config-control" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/config_lb_server?ref=4.2"
+  source = "../modules/config_lb_server"
   
   vm_ipv4_address                = var.infranode_ip
   vm_os_private_key              = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
@@ -424,7 +424,7 @@ module "HAProxy-config-control" {
 }
 
 module "HAProxy-remove-boot" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/config_lb_server?ref=4.2"
+  source = "../modules/config_lb_server"
   
   vm_ipv4_address                = var.infranode_ip
   vm_os_private_key              = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
@@ -442,7 +442,7 @@ module "HAProxy-remove-boot" {
 }
 
 module "wait_for_worker_api_url" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/wait_for_api_url?ref=4.2"
+  source = "../modules/wait_for_api_url"
   
   vm_ipv4_address     = var.infranode_ip
   vm_os_private_key   = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
@@ -461,7 +461,7 @@ module "wait_for_worker_api_url" {
 }
 
 module "compute" {
-  source                     = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/machine_boot?ref=4.2"
+  source                     = "../modules/machine_boot"
   
   wait_for_guest_net_timeout = var.vm_clone_timeout
   name                       = "compute"
@@ -493,7 +493,7 @@ module "compute" {
 }
 
 module "get_compute_ip" {
-  source               = "git::https://github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/get_permanent_ip?ref=4.2" 
+  source               = "../modules/get_permanent_ip" 
 
   vm_ipv4_address 	   = var.infranode_ip
   vm_os_private_key    = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
@@ -512,7 +512,7 @@ module "get_compute_ip" {
 }
 
 module "set_dns_compute" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/config_dns?ref=4.2"
+  source = "../modules/config_dns"
   
   dns_server_ip  = var.infranode_ip
   vm_os_user     = var.infranode_vm_os_user
@@ -536,7 +536,7 @@ module "set_dns_compute" {
 }
 
 module "HAProxy-config-compute" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/config_lb_server?ref=4.2"
+  source = "../modules/config_lb_server"
   
   vm_ipv4_address          = var.infranode_ip
   vm_os_private_key        = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
@@ -554,7 +554,7 @@ module "HAProxy-config-compute" {
 }
 
 module "complete_bootstrap" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/complete_bootstrap?ref=4.2"
+  source = "../modules/complete_bootstrap"
   
   vm_ipv4_address     = var.infranode_ip
   vm_os_private_key   = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
@@ -575,7 +575,7 @@ module "complete_bootstrap" {
 }
 
 module "config_image_registry" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/config_image_registry?ref=4.2"
+  source = "../modules/config_image_registry"
   
   vm_ipv4_address     = var.infranode_ip
   vm_os_private_key   = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
@@ -593,7 +593,7 @@ module "config_image_registry" {
 }
 
 module "complete_install" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/complete_install?ref=4.2"
+  source = "../modules/complete_install"
   
   vm_ipv4_address     = var.infranode_ip
   vm_os_private_key   = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
@@ -609,7 +609,7 @@ module "complete_install" {
 }
 
 module "set_permanent_ip" {
-  source = "github.com/IBM-CAMHub-Open/template_openshift_modules.git//terraform12/vmware/set_permanent_ip?ref=4.2"
+  source = "../modules/set_permanent_ip"
   
   vm_ipv4_address   = var.infranode_ip
   vm_os_private_key = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
