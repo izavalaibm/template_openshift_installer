@@ -364,6 +364,39 @@
       "group_name": "openshift_infra_node_on_vmware"
     },
     {
+      "name": "proxy_server",
+      "description": "Proxy server and port in SERVER:PORT format",
+      "type": "string",
+      "required": true,
+      "secured": false,
+      "label": "Proxy server and port",
+      "hidden": true,
+      "immutable": false,
+      "group_name": "openshift_infra_node_on_vmware"
+    },
+    {
+      "name": "proxy_user",
+      "description": "Proxy user namet",
+      "type": "string",
+      "required": true,
+      "secured": false,
+      "label": "Proxy user name",
+      "hidden": true,
+      "immutable": false,
+      "group_name": "openshift_infra_node_on_vmware"
+    },
+    {
+      "name": "proxy_password",
+      "description": "Password for proxy",
+      "type": "string",
+      "required": true,
+      "secured": false,
+      "label": "Proxy password",
+      "hidden": true,
+      "immutable": false,
+      "group_name": "openshift_infra_node_on_vmware"
+    },
+    {
       "name": "ocp_boot_vm_cpu",
       "label": "Bootstrap Node vCPU Allocation",
       "type": "string",
@@ -398,6 +431,39 @@
       "immutable": false,
       "default": "${openshift42_bootstrap_node_on_vmware.ocp_boot_vm_memory}",
       "group_name": "openshift_bootstrap_node_on_vmware"
+    },
+     {
+      "name": "proxy_server",
+      "description": "Proxy server and port in SERVER:PORT format",
+      "type": "string",
+      "required": true,
+      "secured": false,
+      "label": "Proxy server and port",
+      "hidden": true,
+      "immutable": false,
+      "group_name": "openshift_container_platform_info"
+    },
+    {
+      "name": "proxy_user",
+      "description": "Proxy user namet",
+      "type": "string",
+      "required": true,
+      "secured": false,
+      "label": "Proxy user name",
+      "hidden": true,
+      "immutable": false,
+      "group_name": "openshift_container_platform_info"
+    },
+    {
+      "name": "proxy_password",
+      "description": "Password for proxy",
+      "type": "string",
+      "required": true,
+      "secured": false,
+      "label": "Proxy password",
+      "hidden": true,
+      "immutable": false,
+      "group_name": "openshift_container_platform_info"
     },
     {
       "name": "ocp_cluster_domain",
@@ -618,39 +684,6 @@
       "required": true,
       "secured": false,
       "hidden": false,
-      "immutable": false,
-      "group_name": "openshift_container_platform_info"
-    },
-    {
-      "name": "proxy_server",
-      "description": "Proxy server and port in SERVER:PORT format",
-      "type": "string",
-      "required": true,
-      "secured": false,
-      "label": "Proxy server and port",
-      "hidden": true,
-      "immutable": false,
-      "group_name": "openshift_container_platform_info"
-    },
-    {
-      "name": "proxy_user",
-      "description": "Proxy user namet",
-      "type": "string",
-      "required": true,
-      "secured": false,
-      "label": "Proxy user name",
-      "hidden": true,
-      "immutable": false,
-      "group_name": "openshift_container_platform_info"
-    },
-    {
-      "name": "proxy_password",
-      "description": "Password for proxy",
-      "type": "string",
-      "required": true,
-      "secured": false,
-      "label": "Proxy password",
-      "hidden": true,
       "immutable": false,
       "group_name": "openshift_container_platform_info"
     },
