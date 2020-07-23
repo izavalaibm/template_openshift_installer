@@ -91,7 +91,6 @@ module "deployVM_infranode" {
   vm_ipv4_address                    = var.infranode_ip
   vm_ipv4_prefix_length              = var.infranode_vm_ipv4_prefix_length
   vm_private_adapter_type            = var.vm_private_adapter_type
-  vm_public_adapter_type             = var.vm_public_adapter_type
   vm_disk1_size                      = var.infranode_vm_disk1_size
   vm_disk1_datastore                 = var.infranode_vm_disk1_datastore
   vm_disk1_keep_on_remove            = var.infranode_vm_disk1_keep_on_remove

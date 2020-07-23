@@ -381,7 +381,7 @@
       "required": true,
       "secured": false,
       "label": "Proxy user name",
-      "hidden": true,
+      "hidden": false,
       "immutable": false,
       "group_name": "openshift_infra_node_on_vmware"
     },
@@ -392,7 +392,7 @@
       "required": true,
       "secured": false,
       "label": "Proxy password",
-      "hidden": true,
+      "hidden": false,
       "immutable": false,
       "group_name": "openshift_infra_node_on_vmware"
     },
@@ -683,18 +683,6 @@
       "description": "Private vSphere Network name for infrastructure and OCP cluster VM.",
       "required": true,
       "secured": false,
-      "hidden": false,
-      "immutable": false,
-      "group_name": "openshift_container_platform_info"
-    },
-    {
-      "name": "vm_public_network_interface_label",
-      "default":"${vsphere_managed_inventory_definition.network}",
-      "description": "Public vSphere Network name for infrastructure VM.",
-      "type": "string",
-      "required": true,
-      "secured": false,
-      "label": "Public Network name for infrastructure VM",
       "hidden": false,
       "immutable": false,
       "group_name": "openshift_container_platform_info"
