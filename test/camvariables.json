@@ -182,6 +182,7 @@
       "immutable": false,
       "group_name": "openshift_infra_node_on_vmware"
     },
+  
     {
       "name": "infranode_memory",
       "label": "Infrastructure Node Memory Allocation (MB)",
