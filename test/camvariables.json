@@ -183,17 +183,6 @@
       "group_name": "openshift_infra_node_on_vmware"
     },
     {
-      "name": "infranode_ip",
-      "label": "Infrastructure Node Public IP Address",
-      "type": "string",
-      "description": "Infrastructure Node Public IP Address. This IP address must have a mapping to the OCP cluster app URL in your DNS or in your local etc hosts file.",
-      "required": true,
-      "secured": false,
-      "hidden": false,
-      "immutable": false,
-      "group_name": "openshift_infra_node_on_vmware"
-    },
-    {
       "name": "infranode_memory",
       "label": "Infrastructure Node Memory Allocation (MB)",
       "type": "string",
@@ -370,7 +359,7 @@
       "required": true,
       "secured": false,
       "label": "Proxy server and port",
-      "hidden": true,
+      "hidden": false,
       "immutable": false,
       "group_name": "openshift_infra_node_on_vmware"
     },

@@ -88,7 +88,6 @@ module "deployVM_infranode" {
   vm_public_ssh_key                  = length(var.infra_public_ssh_key) == 0 ? tls_private_key.generate.public_key_openssh : var.infra_public_ssh_key
   vm_private_network_interface_label = var.vm_private_network_interface_label
   vm_ipv4_gateway                    = var.infranode_vm_ipv4_gateway
-  vm_ipv4_address                    = var.infranode_ip
   vm_ipv4_prefix_length              = var.infranode_vm_ipv4_prefix_length
   vm_private_adapter_type            = var.vm_private_adapter_type
   vm_disk1_size                      = var.infranode_vm_disk1_size
