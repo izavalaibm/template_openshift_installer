@@ -15,11 +15,6 @@ data "vsphere_resource_pool" "vsphere_resource_pool" {
   datacenter_id = data.vsphere_datacenter.vsphere_datacenter.id
 }
 
-data "vsphere_network" "vm_public_network" {
-  name          = var.vm_public_network_interface_label
-  datacenter_id = data.vsphere_datacenter.vsphere_datacenter.id
-}
-
 data "vsphere_network" "vm_private_network" {
   name          = var.vm_private_network_interface_label
   datacenter_id = data.vsphere_datacenter.vsphere_datacenter.id

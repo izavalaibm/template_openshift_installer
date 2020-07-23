@@ -151,7 +151,6 @@ module "HTTPServer-Setup" {
 module "HAProxy-install" {
   source = "../modules/config_lb_server"
   
-  vm_ipv4_address     = var.infranode_ip
   vm_os_private_key   = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
   vm_os_user          = var.infranode_vm_os_user
   vm_os_password      = var.infranode_vm_os_password
@@ -169,7 +168,6 @@ module "vmware_ign_config" {
   source = "../modules/vmware_ign_config"
   
 
-  vm_ipv4_address          = var.infranode_ip
   vm_os_private_key_base64 = length(var.infra_private_ssh_key) == 0 ? base64encode(tls_private_key.generate.private_key_pem) : var.infra_private_ssh_key
   vm_os_user               = var.infranode_vm_os_user
   vm_os_password           = var.infranode_vm_os_password
@@ -199,7 +197,6 @@ module "vmware_ign_config" {
 module "prepare_dns" {
   source = "../modules/config_dns"
   
-  dns_server_ip  = var.infranode_ip
   vm_os_user     = var.infranode_vm_os_user
   vm_os_password = var.infranode_vm_os_password
   private_key    = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
@@ -221,7 +218,6 @@ module "prepare_dns" {
 module "prepare_dhcp" {
   source = "../modules/config_dns"
   
-  dns_server_ip       = var.infranode_ip
   vm_os_user          = var.infranode_vm_os_user
   vm_os_password      = var.infranode_vm_os_password
   private_key         = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
