@@ -20,11 +20,6 @@ resource "vsphere_virtual_machine" "vm" {
       }
 
       network_interface {
-        ipv4_address = var.vm_ipv4_address
-        ipv4_netmask = var.vm_ipv4_prefix_length
-      }
-
-      network_interface {
         ipv4_address = var.vm_ipv4_private_address
         ipv4_netmask = "24"
       }
@@ -35,10 +30,6 @@ resource "vsphere_virtual_machine" "vm" {
     }
   }
 
-  network_interface {
-    network_id   = data.vsphere_network.vm_public_network.id
-    adapter_type = var.vm_public_adapter_type
-  }
 
   network_interface {
     network_id   = data.vsphere_network.vm_private_network.id
@@ -152,6 +143,34 @@ EOF
 
   }
 
+provisioner "file" {
+    destination = "Add_Proxy.sh"
+
+    content = <<EOF
+# =================================================================
+# Licensed Materials - Property of IBM
+# 5737-E67
+# @ Copyright IBM Corporation 2016, 2017 All Rights Reserved
+# US Government Users Restricted Rights - Use, duplication or disclosure
+# restricted by GSA ADP Schedule Contract with IBM Corp.
+# =================================================================
+#!/bin/bash
+
+if (( $# != 3 )); then
+echo "usage: arg 1 is SERVER:PORT , arg 2 is user, arg3 is password"
+exit -1
+fi
+
+
+sudo echo "http_proxy=http://$2:$3@$1" > /etc/environment
+sudo echo 'proxy=http://$1'    >> /etc/yum.conf
+sudo echo 'proxy_username=$2' >> /etc/yum.conf
+sudo echo 'proxy_password=$3'  >> /etc/yum.conf
+
+EOF
+
+  }
+
   provisioner "local-exec" {
     command = "echo \"${self.clone[0].customize[0].network_interface[0].ipv4_address}       ${self.name}.${var.vm_domain} ${self.name}\" >> /tmp/${var.random}/hosts"
   }
@@ -180,6 +199,8 @@ resource "null_resource" "add_ssh_key" {
       "set -e",
       "bash -c 'chmod +x VM_add_ssh_key.sh'",
       "bash -c './VM_add_ssh_key.sh  \"${var.vm_os_user}\" \"${var.vm_public_ssh_key}\" \"${var.vm_private_ssh_key}\">> VM_add_ssh_key.log 2>&1'",
+      "bash -c 'chmod +x Add_Proxy.sh'",
+      "bash -c './Add_Proxy.sh \"${var.proxy_server}\" \"${var.proxy_user}\" \"${var.proxy_password}\"",
     ]
   }
 }
@@ -207,11 +228,6 @@ resource "vsphere_virtual_machine" "vm2disk" {
       }
 
       network_interface {
-        ipv4_address = var.vm_ipv4_address
-        ipv4_netmask = var.vm_ipv4_prefix_length
-      }
-
-      network_interface {
         ipv4_address = var.vm_ipv4_private_address
         ipv4_netmask = var.vm_private_ipv4_prefix_length
       }
@@ -220,11 +236,6 @@ resource "vsphere_virtual_machine" "vm2disk" {
       dns_suffix_list = var.vm_dns_suffixes
       dns_server_list = var.vm_dns_servers
     }
-  }
-
-  network_interface {
-    network_id   = data.vsphere_network.vm_public_network.id
-    adapter_type = var.vm_public_adapter_type
   }
 
   network_interface {
@@ -331,6 +342,33 @@ rm -rf $user_auth_key_file_private_temp
 EOF
 
   }
+provisioner "file" {
+    destination = "Add_Proxy.sh"
+
+    content = <<EOF
+# =================================================================
+# Licensed Materials - Property of IBM
+# 5737-E67
+# @ Copyright IBM Corporation 2016, 2017 All Rights Reserved
+# US Government Users Restricted Rights - Use, duplication or disclosure
+# restricted by GSA ADP Schedule Contract with IBM Corp.
+# =================================================================
+#!/bin/bash
+
+if (( $# != 3 )); then
+echo "usage: arg 1 is SERVER:PORT , arg 2 is user, arg3 is password"
+exit -1
+fi
+
+
+sudo echo "http_proxy=http://$2:$3@$1" > /etc/environment
+sudo echo 'proxy=http://$1'    >> /etc/yum.conf
+sudo echo 'proxy_username=$2' >> /etc/yum.conf
+sudo echo 'proxy_password=$3'  >> /etc/yum.conf
+
+EOF
+
+  }
 
   provisioner "local-exec" {
     command = "echo \"${self.clone[0].customize[0].network_interface[0].ipv4_address}       ${self.name}.${var.vm_domain} ${self.name}\" >> /tmp/${var.random}/hosts"
@@ -364,6 +402,8 @@ resource "null_resource" "add_ssh_key_2disk" {
       "bash -c 'chmod +x VM_add_ssh_key.sh'",
       "bash -c 'echo \"${var.vm_os_user}\" \"${var.vm_public_ssh_key}\" \"${var.vm_private_ssh_key}\"'",
       "bash -c './VM_add_ssh_key.sh  \"${var.vm_os_user}\" \"${var.vm_public_ssh_key}\" \"${var.vm_private_ssh_key}\">> VM_add_ssh_key.log 2>&1'",
+      "bash -c 'chmod +x Add_Proxy.sh'",
+      "bash -c './Add_Proxy.sh \"${var.proxy_server}\" \"${var.proxy_user}\" \"${var.proxy_password}\"",
     ]
   }
 }

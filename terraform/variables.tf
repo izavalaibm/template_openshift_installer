@@ -77,10 +77,6 @@ variable "vm_domain_name" {
   type = string
 }
 
-variable "vm_public_network_interface_label" {
-  type = string
-}
-
 variable "vm_private_network_interface_label" {
   type = string
 }
@@ -89,9 +85,6 @@ variable "vm_private_adapter_type" {
   type = string
 }
 
-variable "vm_public_adapter_type" {
-  type = string
-}
 
 variable "vm_folder" {
   type = string
@@ -119,6 +112,18 @@ variable "vsphere_cluster" {
 
 variable "vsphere_resource_pool" {
   type = string
+}
+
+variable "proxy_server" {
+  type        = string
+}
+
+variable "proxy_password" {
+  type        = string
+}
+
+variable "proxy_user" {
+  type        = string
 }
 
 variable "infra_private_ssh_key" {

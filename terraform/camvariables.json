@@ -622,13 +622,34 @@
       "group_name": "openshift_container_platform_info"
     },
     {
-      "name": "vm_public_adapter_type",
-      "default":"${vsphere_managed_inventory_definition.adapter_type}",
-      "description": "Public Network adapter type for for infrastructure VM vNIC Configuration",
+      "name": "proxy_server",
+      "description": "Proxy server and port in SERVER:PORT format",
       "type": "string",
       "required": true,
       "secured": false,
-      "label": "Public Network Adapter Type for infrastructure VM",
+      "label": "Proxy server and port",
+      "hidden": true,
+      "immutable": false,
+      "group_name": "openshift_container_platform_info"
+    },
+    {
+      "name": "proxy_user",
+      "description": "Proxy user namet",
+      "type": "string",
+      "required": true,
+      "secured": false,
+      "label": "Proxy user name",
+      "hidden": true,
+      "immutable": false,
+      "group_name": "openshift_container_platform_info"
+    },
+    {
+      "name": "proxy_password",
+      "description": "Password for proxy",
+      "type": "string",
+      "required": true,
+      "secured": false,
+      "label": "Proxy password",
       "hidden": true,
       "immutable": false,
       "group_name": "openshift_container_platform_info"

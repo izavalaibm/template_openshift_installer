@@ -49,6 +49,21 @@ variable "vm_os_user" {
   description = "Operating System user for the Operating System User to access virtual machine"
 }
 
+variable "proxy_server" {
+  type        = string
+  description = "Proxy server and port in SERVER:PORT format"
+}
+
+variable "proxy_password" {
+  type        = string
+  description = "Password for proxy"
+}
+
+variable "proxy_user" {
+  type        = string
+  description = "Admin for Proxy"
+}
+
 variable "vm_private_ssh_key" {
 }
 
@@ -93,10 +108,6 @@ variable "vm_dns_suffixes" {
 variable "vm_dns_servers" {
   type        = list(string)
   description = "DNS servers for the virtual network adapter"
-}
-
-variable "vm_public_network_interface_label" {
-  description = "vSphere port group or network label for virtual machine's public vNIC"
 }
 
 variable "vm_private_network_interface_label" {
