@@ -12,7 +12,6 @@ resource "null_resource" "get_permanent_ip" {
     user                = var.vm_os_user
     password            = var.vm_os_password
     private_key         = var.vm_os_private_key
-    host                = var.vm_ipv4_address
     bastion_host        = var.bastion_host
     bastion_user        = var.bastion_user
     bastion_private_key = length(var.bastion_private_key) > 0 ? base64decode(var.bastion_private_key) : var.bastion_private_key
@@ -52,7 +51,6 @@ resource "camc_scriptpackage" "get_compute_ip" {
   remote_user         = var.vm_os_user
   remote_password     = var.vm_os_password
   remote_key          = base64encode(var.vm_os_private_key)
-  remote_host         = var.vm_ipv4_address
   bastion_host        = var.bastion_host
   bastion_user        = var.bastion_user
   bastion_private_key = length(var.bastion_private_key) > 0 ? base64decode(var.bastion_private_key) : var.bastion_private_key
@@ -67,7 +65,6 @@ resource "camc_scriptpackage" "get_control_ip" {
   remote_user         = var.vm_os_user
   remote_password     = var.vm_os_password
   remote_key          = base64encode(var.vm_os_private_key)
-  remote_host         = var.vm_ipv4_address
   bastion_host        = var.bastion_host
   bastion_user        = var.bastion_user
   bastion_private_key = length(var.bastion_private_key) > 0 ? base64decode(var.bastion_private_key) : var.bastion_private_key

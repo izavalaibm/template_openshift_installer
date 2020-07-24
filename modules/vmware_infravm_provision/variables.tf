@@ -113,11 +113,6 @@ variable "vm_ipv4_gateway" {
   description = "IPv4 gateway for vNIC configuration"
 }
 
-variable "vm_ipv4_address" {
-  description = "IPv4 address for vNIC configuration"
-  type        = string
-}
-
 variable "vm_ipv4_private_address" {
   description = "IPv4 address for private vNIC configuration"
   type        = string
@@ -136,10 +131,6 @@ variable "vm_private_adapter_type" {
   default     = "vmxnet3"
 }
 
-variable "vm_public_adapter_type" {
-  description = "Network adapter type for vNIC Configuration"
-  default     = "vmxnet3"
-}
 
 variable "vm_disk1_size" {
   description = "Size of template disk volume"

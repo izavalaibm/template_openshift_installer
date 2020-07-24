@@ -385,7 +385,6 @@ resource "null_resource" "add_ssh_key_2disk" {
     type                = "ssh"
     user                = var.vm_os_user
     password            = var.vm_os_password
-    host                = var.vm_ipv4_address
     bastion_host        = var.bastion_host
     bastion_user        = var.bastion_user
     bastion_private_key = length(var.bastion_private_key) > 0 ? base64decode(var.bastion_private_key) : var.bastion_private_key

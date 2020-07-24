@@ -12,7 +12,6 @@ resource "null_resource" "wait_for_api_url" {
     user                = var.vm_os_user
     password            = var.vm_os_password
     private_key         = var.vm_os_private_key
-    host                = var.vm_ipv4_address
     bastion_host        = var.bastion_host
     bastion_user        = var.bastion_user
     bastion_private_key = length(var.bastion_private_key) > 0 ? base64decode(var.bastion_private_key) : var.bastion_private_key

@@ -86,7 +86,18 @@ variable "trustbundle"{
   description = "Base64 encoded Trusted Certificate" 
 }
 
-variable "imagecontent"{
+variable "proxy_server"{
   type        = string
-  description = "Base64 encoded Image Content Sources for Mirrored Image Repository" 
+  description = "Proxy Server" 
 }
+
+variable "proxy_admin"{
+  type        = string
+  description = "admin user for proxy" 
+}
+
+variable "proxy_password"{
+  type        = string
+  description = "Proxy password" 
+}
+

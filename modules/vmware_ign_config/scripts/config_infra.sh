@@ -36,10 +36,8 @@ function create_ignition_config(){
 	sudo sed -i -e "s|@vmwaredatastore@|${VM_DSTORE}|" /installer/install-config.yaml
 	sudo sed -i -e "s?@pullsecret@?${PULL_SECRET_DECODE}?" /installer/install-config.yaml
 	sudo sed -i -e "s|@sshkey@|${SSH_KEY}|" /installer/install-config.yaml
-	sed -i '/@imagecontent@/{
-    s/@imagecontent@//g
-    r /installer/ic_decoded
-	}' /installer/install-config.yaml
+	sudo sed -i -e "s|@proxy_info_1@|${PROXY_INFO}|" /installer/install-config.yaml
+	sudo sed -i -e "s|@proxy_info_2@|${PROXY_INFO}|" /installer/install-config.yaml
 	sed -i -e 's/^/  /' /installer/cerd_decoded
 	sed -i '/@trustbundle@/{
     s/@trustbundle@//g
@@ -133,6 +131,18 @@ function verifyInputs() {
         echo -e "${WARN}Certificate missing; Exiting...${REGULAR}"
         exit 1
     fi
+	if [ -z "$(echo "${P_SERV}" | tr -d '[:space:]')" ]; then
+        echo -e "${WARN}Proxy server missing; Exiting...${REGULAR}"
+        exit 1
+    fi
+	if [ -z "$(echo "${P_ADM}" | tr -d '[:space:]')" ]; then
+        echo -e "${WARN}Proxy admin user missing; Exiting...${REGULAR}"
+        exit 1
+    fi
+	if [ -z "$(echo "${P_PASS}" | tr -d '[:space:]')" ]; then
+        echo -e "${WARN}Certificate missing; Exiting...${REGULAR}"
+        exit 1
+    fi
 	if [ -z "$(echo "${_}" | tr -d '[:space:]')" ]; then
         echo -e "${WARN}_ URL is missing; Exiting...${REGULAR}"
         exit 1
@@ -162,7 +172,9 @@ while test ${#} -gt 0; do
     [[ $1 =~ ^-vs|--vmwaredatastore ]]     && { VM_DSTORE="${2}";               shift 2; continue; };
     [[ $1 =~ ^-s|--pullsecret ]]     && { PULL_SECRET="${2}";         shift 2; continue; };
 	[[ $1 =~ ^-tb|--trustbundle ]]     && { TRUST_BUNDLE="${2}";         shift 2; continue; };
-	[[ $1 =~ ^-ic|--imagecontent ]]     && { IMAGE_CONTENT="${2}";         shift 2; continue; };
+	[[ $1 =~ ^-ps|--proxy_server ]]     && { P_SERV="${2}";         shift 2; continue; };
+	[[ $1 =~ ^-pa|--proxy_admin ]]     && { P_ADM="${2}";         shift 2; continue; };
+	[[ $1 =~ ^-pp|--proxy_password ]]     && { P_PASS="${2}";         shift 2; continue; };
     [[ $1 =~ ^-h|--host ]]     && { INFRA_IP="${2}";         shift 2; continue; };	
     break;
 done
@@ -196,9 +208,9 @@ if [ -f "/installer/.install_complete" ]; then
 else
 	echo "Initial install"
 	PULL_SECRET_DECODE=`echo $PULL_SECRET | base64 -d`
+	PROXY_INFO=`$P_ADM:$P_PASS@$P_SERV`
 	gen_key
 	get_installer $OCP_VERSION	
-	`echo $IMAGE_CONTENT | base64 -d > /installer/ic_decoded`
 	`echo $TRUST_BUNDLE | base64 -d > /installer/cerd_decoded`	
 	create_ignition_config
 	create_control_ign ${CONTROL_NODES}

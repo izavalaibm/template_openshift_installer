@@ -216,10 +216,6 @@ variable "trustbundle" {
   type = string
 }
 
-variable "imagecontent" {
-  type = string
-}
-
 variable "dhcp_ip_range_start" {
   default     = "192.168.1.2"
   type        = string
