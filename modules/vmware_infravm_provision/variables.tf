@@ -49,16 +49,6 @@ variable "proxy_server" {
   description = "Proxy server and port in SERVER:PORT format"
 }
 
-variable "proxy_password" {
-  type        = string
-  description = "Password for proxy"
-}
-
-variable "proxy_user" {
-  type        = string
-  description = "Admin for Proxy"
-}
-
 variable "vm_private_ssh_key" {
 }
 

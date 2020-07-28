@@ -82,8 +82,6 @@ module "deployVM_infranode" {
   vm_domain                          = var.vm_domain_name
   vm_folder                          = var.vm_folder
   proxy_server                       = var.proxy_server
-  proxy_user                         = var.proxy_user
-  proxy_password                     = var.proxy_password
   vm_private_ssh_key                 = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
   vm_public_ssh_key                  = length(var.infra_public_ssh_key) == 0 ? tls_private_key.generate.public_key_openssh : var.infra_public_ssh_key
   vm_private_network_interface_label = var.vm_private_network_interface_label
@@ -188,8 +186,7 @@ module "vmware_ign_config" {
   vcenterpassword          = local.vcenterpassword
   vcenterdatacenter        = var.vsphere_datacenter
   vmwaredatastore          = var.infranode_vm_disk1_datastore
-  pullsecret               = var.pullsecret
-  trustbundle              = var.trustbundle
+  proxy_server             = var.proxy_server
   vm_ipv4_private_address  = var.infra_private_ipv4_address
 }
 

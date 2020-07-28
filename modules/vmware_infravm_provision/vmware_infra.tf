@@ -156,16 +156,14 @@ provisioner "file" {
 # =================================================================
 #!/bin/bash
 
-if (( $# != 3 )); then
-echo "usage: arg 1 is SERVER:PORT , arg 2 is user, arg3 is password"
+if (( $# != 1 )); then
+echo "usage: arg 1 is SERVER:PORT"
 exit -1
 fi
 
 
-sudo echo "http_proxy=http://$2:$3@$1" > /etc/environment
+sudo echo "http_proxy=http://$1" > /etc/environment
 sudo echo 'proxy=http://$1'    >> /etc/yum.conf
-sudo echo 'proxy_username=$2' >> /etc/yum.conf
-sudo echo 'proxy_password=$3'  >> /etc/yum.conf
 
 EOF
 
@@ -200,7 +198,7 @@ resource "null_resource" "add_ssh_key" {
       "bash -c 'chmod +x VM_add_ssh_key.sh'",
       "bash -c './VM_add_ssh_key.sh  \"${var.vm_os_user}\" \"${var.vm_public_ssh_key}\" \"${var.vm_private_ssh_key}\">> VM_add_ssh_key.log 2>&1'",
       "bash -c 'chmod +x Add_Proxy.sh'",
-      "bash -c './Add_Proxy.sh \"${var.proxy_server}\" \"${var.proxy_user}\" \"${var.proxy_password}\"",
+      "bash -c './Add_Proxy.sh \"${var.proxy_server}\"",
     ]
   }
 }
@@ -355,16 +353,14 @@ provisioner "file" {
 # =================================================================
 #!/bin/bash
 
-if (( $# != 3 )); then
-echo "usage: arg 1 is SERVER:PORT , arg 2 is user, arg3 is password"
+if (( $# != 1 )); then
+echo "usage: arg 1 is SERVER:PORT"
 exit -1
 fi
 
 
-sudo echo "http_proxy=http://$2:$3@$1" > /etc/environment
+sudo echo "http_proxy=http://$1" > /etc/environment
 sudo echo 'proxy=http://$1'    >> /etc/yum.conf
-sudo echo 'proxy_username=$2' >> /etc/yum.conf
-sudo echo 'proxy_password=$3'  >> /etc/yum.conf
 
 EOF
 
@@ -402,7 +398,7 @@ resource "null_resource" "add_ssh_key_2disk" {
       "bash -c 'echo \"${var.vm_os_user}\" \"${var.vm_public_ssh_key}\" \"${var.vm_private_ssh_key}\"'",
       "bash -c './VM_add_ssh_key.sh  \"${var.vm_os_user}\" \"${var.vm_public_ssh_key}\" \"${var.vm_private_ssh_key}\">> VM_add_ssh_key.log 2>&1'",
       "bash -c 'chmod +x Add_Proxy.sh'",
-      "bash -c './Add_Proxy.sh \"${var.proxy_server}\" \"${var.proxy_user}\" \"${var.proxy_password}\"",
+      "bash -c './Add_Proxy.sh \"${var.proxy_server}\"",
     ]
   }
 }

@@ -365,28 +365,6 @@
       "group_name": "openshift_infra_node_on_vmware"
     },
     {
-      "name": "proxy_user",
-      "description": "Proxy user namet",
-      "type": "string",
-      "required": true,
-      "secured": false,
-      "label": "Proxy user name",
-      "hidden": false,
-      "immutable": false,
-      "group_name": "openshift_infra_node_on_vmware"
-    },
-    {
-      "name": "proxy_password",
-      "description": "Password for proxy",
-      "type": "string",
-      "required": true,
-      "secured": true,
-      "label": "Proxy password",
-      "hidden": false,
-      "immutable": false,
-      "group_name": "openshift_infra_node_on_vmware"
-    },
-    {
       "name": "ocp_boot_vm_cpu",
       "label": "Bootstrap Node vCPU Allocation",
       "type": "string",
@@ -533,17 +511,6 @@
       "label": "Base64 encoded OCP image pull secret",
       "type": "string",
       "description": "Base64 encoded OCP image pull secret. You can obtain this from your Red Hat account page.",
-      "required": true,
-      "secured": false,
-      "hidden": false,
-      "immutable": false,
-      "group_name": "openshift_container_platform_info"
-    },
-    {
-      "name": "trustbundle",
-      "label": "Base64 encoded trusted certificate",
-      "type": "string",
-      "description": "Base64 encoded Truested certificate",
       "required": true,
       "secured": false,
       "hidden": false,

@@ -134,7 +134,7 @@ resource "null_resource" "generate_ign_config" {
   provisioner "remote-exec" {
     inline = [
       "set -e",
-      "bash -c '/tmp/config_infra.sh -h ${var.vm_ipv4_private_address} -oc ${var.ocversion} -d ${var.domain} -n ${var.controlnodes} -m ${var.computenodes} -cn ${var.clustername} -vc ${var.vcenter} -vu ${var.vcenteruser} -vp ${var.vcenterpassword} -vd ${var.vcenterdatacenter} -vs ${var.vmwaredatastore} -s ${var.pullsecret} -tb ${var.trustbundle} -ps ${var.proxy_server} -pa ${var.proxy_admin} -pp ${var.proxy_password}'",
+      "bash -c '/tmp/config_infra.sh -h ${var.vm_ipv4_private_address} -oc ${var.ocversion} -d ${var.domain} -n ${var.controlnodes} -m ${var.computenodes} -cn ${var.clustername} -vc ${var.vcenter} -vu ${var.vcenteruser} -vp ${var.vcenterpassword} -vd ${var.vcenterdatacenter} -vs ${var.vmwaredatastore} -s ${var.pullsecret} -ps ${var.proxy_server}",
     ]
   }
 }

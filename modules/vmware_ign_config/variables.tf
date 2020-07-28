@@ -81,23 +81,8 @@ variable "pullsecret" {
   description = "Base64 encoded OCP image pull secret."
 }
 
-variable "trustbundle"{
-  type        = string
-  description = "Base64 encoded Trusted Certificate" 
-}
-
 variable "proxy_server"{
   type        = string
   description = "Proxy Server" 
-}
-
-variable "proxy_admin"{
-  type        = string
-  description = "admin user for proxy" 
-}
-
-variable "proxy_password"{
-  type        = string
-  description = "Proxy password" 
 }
 
