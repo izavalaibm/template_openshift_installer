@@ -20,8 +20,8 @@ resource "vsphere_virtual_machine" "vm" {
       }
 
       network_interface {
-        ipv4_address = var.vm_ipv4_private_address
-        ipv4_netmask = "24"
+        ipv4_address = var.vm_ipv4_address
+        ipv4_netmask = var.vm_ipv4_prefix_length
       }
 
       ipv4_gateway    = var.vm_ipv4_gateway
@@ -218,7 +218,6 @@ resource "vsphere_virtual_machine" "vm2disk" {
   clone {
     template_uuid = data.vsphere_virtual_machine.vm_template.id
     timeout       = var.vm_clone_timeout
-
     customize {
       linux_options {
         domain    = var.vm_domain
@@ -226,8 +225,8 @@ resource "vsphere_virtual_machine" "vm2disk" {
       }
 
       network_interface {
-        ipv4_address = var.vm_ipv4_private_address
-        ipv4_netmask = var.vm_private_ipv4_prefix_length
+        ipv4_address = var.vm_ipv4_address
+        ipv4_netmask = var.vm_ipv4_prefix_length
       }
 
       ipv4_gateway    = var.vm_ipv4_gateway
@@ -235,6 +234,7 @@ resource "vsphere_virtual_machine" "vm2disk" {
       dns_server_list = var.vm_dns_servers
     }
   }
+
 
   network_interface {
     network_id   = data.vsphere_network.vm_private_network.id

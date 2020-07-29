@@ -1,7 +1,3 @@
-variable "dns_server_ip" {
-  type        = string
-  description = "IP address of the server where DNS will be configured"
-}
 
 variable "vm_os_user" {
   type        = string

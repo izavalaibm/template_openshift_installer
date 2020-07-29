@@ -45,9 +45,3 @@ output "private_interface" {
   description = "Private interface"
 }
 
-output "public_interface" {
-  depends_on  = [camc_scriptpackage.get_interfaces]
-  value       = camc_scriptpackage.get_interfaces.result["publicintf"]
-  description = "Public interface"
-}
-

@@ -44,17 +44,17 @@ function configureFirewall() {
 		sudo ufw allow out 6081/udp		
 		sudo ufw allow out 30000:32767/udp							
 		sudo ufw allow out 2049/udp
-		echo "net/ipv4/ip_forward=1" | sudo tee -a /etc/ufw/sysctl.conf
-		sudo sed -i -e 's/DEFAULT_FORWARD_POLICY=.*/DEFAULT_FORWARD_POLICY="ACCEPT"/g' /etc/default/ufw
-		sudo sed -i -e "1s|^|/*nat :POSTROUTING ACCEPT [0:0] -A POSTROUTING -o $INT -j MASQUERADE COMMIT \n|" /etc/ufw/before.rules
+		#echo "net/ipv4/ip_forward=1" | sudo tee -a /etc/ufw/sysctl.conf
+		#sudo sed -i -e 's/DEFAULT_FORWARD_POLICY=.*/DEFAULT_FORWARD_POLICY="ACCEPT"/g' /etc/default/ufw
+		#sudo sed -i -e "1s|^|/*nat :POSTROUTING ACCEPT [0:0] -A POSTROUTING -o $INT -j MASQUERADE COMMIT \n|" /etc/ufw/before.rules
         echo "y" | sudo ufw disable
         echo "y" | sudo ufw enable
         echo "y" | sudo ufw reset
     elif [[ ${PLATFORM} == *"rhel"* ]]; then
         sudo systemctl start firewalld
         sudo systemctl enable firewalld
-    	sudo sysctl -w net.ipv4.ip_forward=1
-		echo "net.ipv4.ip_forward = 1" | sudo tee -a /etc/sysctl.d/ip_forward.conf    		
+    	#sudo sysctl -w net.ipv4.ip_forward=1
+		#echo "net.ipv4.ip_forward = 1" | sudo tee -a /etc/sysctl.d/ip_forward.conf    		
     	sudo sysctl -p        	
         for ports in 22 53 67 68 80 443 2380 6443 8080 22623; do
         	sudo firewall-cmd --zone=public --add-port=${ports}/tcp --permanent
@@ -74,9 +74,9 @@ function configureFirewall() {
 		#sudo firewall-cmd --permanent --direct --add-rule ipv4 filter OUTPUT 0 -j ACCEPT -m comment --comment "Accept all outgoing"
 		#sudo firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -j ACCEPT -m comment --comment "Accept all incoming"
 		#sudo firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -m state --state ESTABLISHED,RELATED -j ACCEPT -m comment --comment "Allow all incoming on established connections"
-		sudo firewall-cmd --permanent --direct --add-rule ipv4 nat POSTROUTING 0 -o $PUBLIC_INT -j MASQUERADE			
-		sudo firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -i $PRIVATE_INT -o $PUBLIC_INT -j ACCEPT
-		sudo firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -i $PUBLIC_INT -o $PRIVATE_INT -m state --state RELATED,ESTABLISHED -j ACCEPT			
+		#sudo firewall-cmd --permanent --direct --add-rule ipv4 nat POSTROUTING 0 -o $PUBLIC_INT -j MASQUERADE			
+		#sudo firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -i $PRIVATE_INT -o $PUBLIC_INT -j ACCEPT
+		#sudo firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -i $PUBLIC_INT -o $PRIVATE_INT -m state --state RELATED,ESTABLISHED -j ACCEPT			
 		#sudo firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 1 -j REJECT -m comment --comment "Reject all incoming"
 		#sudo firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 1 -j REJECT -m comment --comment "Reject all forwarded"						    		
         sudo firewall-cmd --reload

@@ -8,8 +8,8 @@ variable "vm_os_user" {
   description = "User for the Operating System User to access virtual machine"
 }
 
-variable "vm_ipv4_private_address" {
-  description = "IPv4 address for private vNIC configuration"
+variable "vm_ipv4_address" {
+  description = "IPv4 address for vNIC configuration"
   type        = string
 }
 

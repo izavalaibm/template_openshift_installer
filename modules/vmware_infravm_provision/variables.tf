@@ -103,6 +103,11 @@ variable "vm_ipv4_gateway" {
   description = "IPv4 gateway for vNIC configuration"
 }
 
+variable "vm_ipv4_address" {
+  description = "IPv4 address for vNIC configuration"
+  type        = string
+}
+
 variable "vm_ipv4_private_address" {
   description = "IPv4 address for private vNIC configuration"
   type        = string

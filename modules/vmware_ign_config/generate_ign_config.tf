@@ -11,6 +11,7 @@ resource "null_resource" "move_files" {
     type                = "ssh"
     user                = var.vm_os_user
     password            = var.vm_os_password
+    host                = var.vm_ipv4_address
     private_key         = base64decode(var.vm_os_private_key_base64)
     bastion_host        = var.bastion_host
     bastion_user        = var.bastion_user
@@ -80,6 +81,7 @@ resource "null_resource" "set_firewall" {
     user                = var.vm_os_user
     password            = var.vm_os_password
     private_key         = base64decode(var.vm_os_private_key_base64)
+    host                = var.vm_ipv4_address
     bastion_host        = var.bastion_host
     bastion_user        = var.bastion_user
     bastion_private_key = length(var.bastion_private_key) > 0 ? base64decode(var.bastion_private_key) : var.bastion_private_key
@@ -91,7 +93,7 @@ resource "null_resource" "set_firewall" {
   provisioner "remote-exec" {
     inline = [
       "set -e",
-      "bash -c '/tmp/config_firewall.sh ${var.vm_ipv4_private_address} ${var.vm_ipv4_address}'",
+      "bash -c '/tmp/config_firewall.sh ${var.vm_ipv4_address}'",
     ]
   }
 }
@@ -103,6 +105,7 @@ resource "null_resource" "generate_ign_config" {
     user                = var.vm_os_user
     password            = var.vm_os_password
     private_key         = base64decode(var.vm_os_private_key_base64)
+    host                = var.vm_ipv4_address
     bastion_host        = var.bastion_host
     bastion_user        = var.bastion_user
     bastion_private_key = length(var.bastion_private_key) > 0 ? base64decode(var.bastion_private_key) : var.bastion_private_key
@@ -216,7 +219,7 @@ resource "camc_scriptpackage" "get_cluster_key" {
 
 resource "camc_scriptpackage" "get_interfaces" {
   depends_on          = [camc_scriptpackage.get_cluster_key]
-  program             = ["/bin/bash", "/tmp/get_interfaces.sh ${var.vm_ipv4_private_address} ${var.vm_ipv4_address}"]
+  program             = ["/bin/bash", "/tmp/get_interfaces.sh ${var.vm_ipv4_address}"]
   on_create           = true
   remote_user         = var.vm_os_user
   remote_password     = var.vm_os_password

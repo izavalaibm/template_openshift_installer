@@ -86,6 +86,7 @@ module "deployVM_infranode" {
   vm_public_ssh_key                  = length(var.infra_public_ssh_key) == 0 ? tls_private_key.generate.public_key_openssh : var.infra_public_ssh_key
   vm_private_network_interface_label = var.vm_private_network_interface_label
   vm_ipv4_gateway                    = var.infranode_vm_ipv4_gateway
+  vm_ipv4_address                    = var.infranode_ip
   vm_ipv4_prefix_length              = var.infranode_vm_ipv4_prefix_length
   vm_private_adapter_type            = var.vm_private_adapter_type
   vm_disk1_size                      = var.infranode_vm_disk1_size
@@ -112,6 +113,7 @@ module "deployVM_infranode" {
 module "NFSServer-Setup" {
   source = "../modules/config_nfs_server"
 
+  vm_ipv4_address     = var.infranode_ip
   vm_os_private_key = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
   vm_os_user        = var.infranode_vm_os_user
   vm_os_password    = var.infranode_vm_os_password
@@ -148,6 +150,7 @@ module "HTTPServer-Setup" {
 module "HAProxy-install" {
   source = "../modules/config_lb_server"
   
+  vm_ipv4_address     = var.infranode_ip
   vm_os_private_key   = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
   vm_os_user          = var.infranode_vm_os_user
   vm_os_password      = var.infranode_vm_os_password
@@ -164,7 +167,7 @@ module "HAProxy-install" {
 module "vmware_ign_config" {
   source = "../modules/vmware_ign_config"
   
-
+  vm_ipv4_address          = var.infranode_ip
   vm_os_private_key_base64 = length(var.infra_private_ssh_key) == 0 ? base64encode(tls_private_key.generate.private_key_pem) : var.infra_private_ssh_key
   vm_os_user               = var.infranode_vm_os_user
   vm_os_password           = var.infranode_vm_os_password
@@ -187,12 +190,12 @@ module "vmware_ign_config" {
   vmwaredatastore          = var.infranode_vm_disk1_datastore
   pullsecret               = var.pullsecret
   proxy_server             = var.proxy_server
-  vm_ipv4_private_address  = var.infra_private_ipv4_address
 }
 
 module "prepare_dns" {
   source = "../modules/config_dns"
   
+  dns_server_ip  = var.infranode_ip
   vm_os_user     = var.infranode_vm_os_user
   vm_os_password = var.infranode_vm_os_password
   private_key    = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
@@ -214,11 +217,12 @@ module "prepare_dns" {
 module "prepare_dhcp" {
   source = "../modules/config_dns"
   
+  dns_server_ip       = var.infranode_ip
   vm_os_user          = var.infranode_vm_os_user
   vm_os_password      = var.infranode_vm_os_password
   private_key         = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
   action              = "dhcp"
-  dhcp_interface      = module.vmware_ign_config.private_interface
+  dhcp_interface      = module.vmware_ign_config.public_interface
   dhcp_router_ip      = var.infra_private_ipv4_address
   dhcp_ip_range_start = var.dhcp_ip_range_start
   dhcp_ip_range_end   = var.dhcp_ip_range_end
