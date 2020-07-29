@@ -111,8 +111,7 @@ module "deployVM_infranode" {
 
 module "NFSServer-Setup" {
   source = "../modules/config_nfs_server"
-  
-  vm_ipv4_address   = var.infranode_ip
+
   vm_os_private_key = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
   vm_os_user        = var.infranode_vm_os_user
   vm_os_password    = var.infranode_vm_os_password
