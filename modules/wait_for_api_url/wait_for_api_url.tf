@@ -11,6 +11,7 @@ resource "null_resource" "wait_for_api_url" {
     type                = "ssh"
     user                = var.vm_os_user
     password            = var.vm_os_password
+    host = var.vm_ipv4_address
     private_key         = var.vm_os_private_key
     bastion_host        = var.bastion_host
     bastion_user        = var.bastion_user
