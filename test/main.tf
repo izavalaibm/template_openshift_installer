@@ -190,6 +190,7 @@ module "vmware_ign_config" {
   vmwaredatastore          = var.infranode_vm_disk1_datastore
   pullsecret               = var.pullsecret
   proxy_server             = var.proxy_server
+  vm_ipv4_private_address  = var.infra_private_ipv4_address
 }
 
 module "prepare_dns" {
