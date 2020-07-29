@@ -63,6 +63,7 @@ resource "vsphere_virtual_machine" "vm" {
 	    user = var.vm_os_user
 	    password =  var.vm_os_password
 	    private_key = base64decode(var.vm_os_private_key_base64)
+      host = var.vm_ipv4_address
 	    bastion_host        = var.bastion_host
 	    bastion_user        = var.bastion_user
 	    bastion_private_key =  length(var.bastion_private_key) > 0 ? base64decode(var.bastion_private_key) : var.bastion_private_key
@@ -81,6 +82,7 @@ resource "vsphere_virtual_machine" "vm" {
 	    user = var.vm_os_user
 	    password =  var.vm_os_password
 	    private_key = base64decode(var.vm_os_private_key_base64)
+      host = var.vm_ipv4_address
 	    bastion_host        = var.bastion_host
 	    bastion_user        = var.bastion_user
 	    bastion_private_key =  length(var.bastion_private_key) > 0 ? base64decode(var.bastion_private_key) : var.bastion_private_key
