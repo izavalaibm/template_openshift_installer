@@ -223,7 +223,7 @@ module "prepare_dhcp" {
   vm_os_password      = var.infranode_vm_os_password
   private_key         = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
   action              = "dhcp"
-  dhcp_interface      = module.vmware_ign_config.public_interface
+  dhcp_interface      = module.vmware_ign_config.private_interface
   dhcp_router_ip      = var.infra_private_ipv4_address
   dhcp_ip_range_start = var.dhcp_ip_range_start
   dhcp_ip_range_end   = var.dhcp_ip_range_end
