@@ -76,6 +76,11 @@ variable "vm_os_user" {
   description = "User for the Operating System User to access virtual machine"
 }
 
+variable "vm_ipv4_address" {
+  description = "IPv4 address for vNIC configuration"
+  type        = string
+}
+
 variable "vm_os_private_key_base64" {
   default = ""
   description = "Base64 encoded key"
