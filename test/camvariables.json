@@ -172,6 +172,17 @@
       "group_name": "openshift_infra_node_on_vmware"
     },
     {
+      "name": "infranode_ip",
+      "label": "Infrastructure Node Public IP Address",
+      "type": "string",
+      "description": "Infrastructure Node Public IP Address. This IP address must have a mapping to the OCP cluster app URL in your DNS or in your local etc hosts file.",
+      "required": true,
+      "secured": false,
+      "hidden": false,
+      "immutable": false,
+      "group_name": "openshift_infra_node_on_vmware"
+    },
+    {
       "name": "infranode_hostname",
       "label": "Infrastructure Node Hostname",
       "type": "string",
