@@ -85,9 +85,6 @@ variable "vm_private_adapter_type" {
   type = string
 }
 
-variable "vm_public_adapter_type" {
-  type = string
-}
 
 variable "vm_folder" {
   type = string
@@ -120,6 +117,7 @@ variable "vsphere_resource_pool" {
 variable "proxy_server" {
   type        = string
 }
+
 
 variable "infra_private_ssh_key" {
   type = string
