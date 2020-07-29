@@ -46,7 +46,7 @@ resource "camc_scriptpackage" "get_creds" {
   on_create           = true
   remote_user         = var.vm_os_user
   remote_password     = var.vm_os_password
-  host                = var.vm_ipv4_address
+  remote_host         = var.vm_ipv4_address
   remote_key          = base64encode(var.vm_os_private_key)
   bastion_host        = var.bastion_host
   bastion_user        = var.bastion_user
