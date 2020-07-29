@@ -12,10 +12,6 @@ variable "infra_private_ipv4_prefix_length" {
   default = "24"
 }
 
-variable "infranode_ip" {
-  type = string
-}
-
 variable "infranode_vcpu" {
   type = string
 }
@@ -118,13 +114,6 @@ variable "proxy_server" {
   type        = string
 }
 
-variable "proxy_password" {
-  type        = string
-}
-
-variable "proxy_user" {
-  type        = string
-}
 
 variable "infra_private_ssh_key" {
   type = string
@@ -209,14 +198,6 @@ variable "compute_count" {
 }
 
 variable "pullsecret" {
-  type = string
-}
-
-variable "trustbundle" {
-  type = string
-}
-
-variable "imagecontent" {
   type = string
 }
 
