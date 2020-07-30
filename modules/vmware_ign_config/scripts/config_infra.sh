@@ -40,7 +40,7 @@ function create_ignition_config(){
 	sudo sed -i -e "s|@proxy_info_2@|${P_SERV}|" /installer/install-config.yaml
 
 	cat /installer/install-config.yaml
-	echo $PULL_SECRET_DECODE
+	
 	sudo cp /installer/install-config.yaml /installer/install-config.yaml.bak
 	sudo /usr/local/bin/openshift-install create manifests --dir=/installer/	
     sudo sed -i -e "s|mastersSchedulable: true|mastersSchedulable: false|" /installer/manifests/cluster-scheduler-02-config.yml

@@ -156,14 +156,20 @@ provisioner "file" {
 # =================================================================
 #!/bin/bash
 
-if (( $# != 1 )); then
-echo "usage: arg 1 is SERVER:PORT"
-exit -1
-fi
+sudo echo "http_proxy=http://${var.proxy_server}" >> /etc/environment
+sudo echo "proxy=http://${var.proxy_server}"    >> /etc/yum.conf
+PROXY_URL="http://${var.proxy_server}/"
 
+export http_proxy="$PROXY_URL"
+export https_proxy="$PROXY_URL"
+export ftp_proxy="$PROXY_URL"
+export no_proxy="127.0.0.1,localhost"
 
-sudo echo "http_proxy=http://$1" > /etc/environment
-sudo echo "proxy=http://$1"    >> /etc/yum.conf
+# For curl
+export HTTP_PROXY="$PROXY_URL"
+export HTTPS_PROXY="$PROXY_URL"
+export FTP_PROXY="$PROXY_URL"
+export NO_PROXY="127.0.0.1,localhost"
 
 EOF
 
@@ -195,10 +201,9 @@ resource "null_resource" "add_ssh_key" {
   provisioner "remote-exec" {
     inline = [
       "set -e",
-      "bash -c 'chmod +x VM_add_ssh_key.sh'",
+      "bash -c 'chmod +x VM_add_ssh_key.sh Add_Proxy.sh'",
       "bash -c './VM_add_ssh_key.sh  \"${var.vm_os_user}\" \"${var.vm_public_ssh_key}\" \"${var.vm_private_ssh_key}\">> VM_add_ssh_key.log 2>&1'",
-      "bash -c 'chmod +x Add_Proxy.sh'",
-      "bash -c './Add_Proxy.sh \"${var.proxy_server}\"'",
+      "bash -c 'mv Add_Proxy.sh /etc/profile.d'",
     ]
   }
 }
@@ -353,14 +358,20 @@ provisioner "file" {
 # =================================================================
 #!/bin/bash
 
-if (( $# != 1 )); then
-echo "usage: arg 1 is SERVER:PORT"
-exit -1
-fi
+sudo echo "http_proxy=http://${var.proxy_server}" >> /etc/environment
+sudo echo "proxy=http://${var.proxy_server}"    >> /etc/yum.conf
+PROXY_URL="http://${var.proxy_server}/"
 
+export http_proxy="$PROXY_URL"
+export https_proxy="$PROXY_URL"
+export ftp_proxy="$PROXY_URL"
+export no_proxy="127.0.0.1,localhost"
 
-sudo echo "http_proxy=http://$1" > /etc/environment
-sudo echo "proxy=http://$1"    >> /etc/yum.conf
+# For curl
+export HTTP_PROXY="$PROXY_URL"
+export HTTPS_PROXY="$PROXY_URL"
+export FTP_PROXY="$PROXY_URL"
+export NO_PROXY="127.0.0.1,localhost"
 
 EOF
 
@@ -395,11 +406,10 @@ resource "null_resource" "add_ssh_key_2disk" {
   provisioner "remote-exec" {
     inline = [
       "set -e",
-      "bash -c 'chmod +x VM_add_ssh_key.sh'",
+      "bash -c 'chmod +x VM_add_ssh_key.sh Add_Proxy.sh'",
       "bash -c 'echo \"${var.vm_os_user}\" \"${var.vm_public_ssh_key}\" \"${var.vm_private_ssh_key}\"'",
       "bash -c './VM_add_ssh_key.sh  \"${var.vm_os_user}\" \"${var.vm_public_ssh_key}\" \"${var.vm_private_ssh_key}\">> VM_add_ssh_key.log 2>&1'",
-      "bash -c 'chmod +x Add_Proxy.sh'",
-      "bash -c './Add_Proxy.sh \"${var.proxy_server}\"'",
+      "bash -c 'mv Add_Proxy.sh /etc/profile.d'",
     ]
   }
 }
