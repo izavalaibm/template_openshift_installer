@@ -163,7 +163,7 @@ fi
 
 
 sudo echo "http_proxy=http://$1" > /etc/environment
-sudo echo 'proxy=http://$1'    >> /etc/yum.conf
+sudo echo "proxy=http://$1"    >> /etc/yum.conf
 
 EOF
 
@@ -360,7 +360,7 @@ fi
 
 
 sudo echo "http_proxy=http://$1" > /etc/environment
-sudo echo 'proxy=http://$1'    >> /etc/yum.conf
+sudo echo "proxy=http://$1"    >> /etc/yum.conf
 
 EOF
 
