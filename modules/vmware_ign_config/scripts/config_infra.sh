@@ -122,10 +122,6 @@ function verifyInputs() {
         echo -e "${WARN}Image pull secret is missing; Exiting...${REGULAR}"
         exit 1
     fi
-	if [ -z "$(echo "${TRUST_BUNDLE}" | tr -d '[:space:]')" ]; then
-        echo -e "${WARN}Certificate missing; Exiting...${REGULAR}"
-        exit 1
-    fi
 	if [ -z "$(echo "${P_SERV}" | tr -d '[:space:]')" ]; then
         echo -e "${WARN}Proxy server missing; Exiting...${REGULAR}"
         exit 1
