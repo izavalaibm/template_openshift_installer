@@ -11,7 +11,7 @@ function gen_key()
 }
 
 function get_installer(){
-	sudo source /etc/profile
+	source /etc/profile
 	sudo mkdir -p /installer
 	sudo curl -o /installer/openshift-install-linux-${1}.tar.gz https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${1}/openshift-install-linux-${1}.tar.gz
     sudo curl -o /installer/openshift-client-linux-${1}.tar.gz https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${1}/openshift-client-linux-${1}.tar.gz
