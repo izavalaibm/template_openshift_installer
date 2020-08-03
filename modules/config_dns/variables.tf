@@ -68,25 +68,21 @@ variable "dhcp_router_ip" {
 }
 
 variable "dhcp_ip_range_start" {
-  default     = ""
   type        = string
   description = "IP address for the start of the DHCP IP address range"
 }
 
 variable "dhcp_ip_range_end" {
-  default     = ""
   type        = string
   description = "IP address for the end of the DHCP IP address range"
 }
 
 variable "dhcp_netmask" {
-  default     = ""
   type        = string
   description = "Netmask used for the DHCP configuration"
 }
 
 variable "dhcp_lease_time" {
-  default     = ""
   type        = string
   description = "Length of time to be assigned to a DHCP lease"
 }
