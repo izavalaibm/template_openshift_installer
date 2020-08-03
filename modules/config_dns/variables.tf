@@ -68,7 +68,6 @@ variable "dhcp_router_ip" {
 }
 
 variable "dhcp_ip_range_start" {
-  type        = string
   description = "IP address for the start of the DHCP IP address range"
 }
 
