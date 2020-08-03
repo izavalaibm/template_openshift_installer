@@ -204,10 +204,7 @@ module "prepare_dns" {
   domain_name    = var.ocp_cluster_domain
   cluster_name   = var.clustername
   cluster_ip     = var.infra_private_ipv4_address
-  dhcp_ip_range_start =  "${var.dhcp_ip_range_start}"
-  dhcp_ip_range_end   =  "${var.dhcp_ip_range_end}"
-  dhcp_netmask        =  "${var.dhcp_netmask}"
-  dhcp_lease_time     =  "${var.dhcp_lease_time}"
+
 
   ## Access to optional bastion host
   bastion_host        = var.bastion_host
