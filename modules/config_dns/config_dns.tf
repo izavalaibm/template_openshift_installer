@@ -69,6 +69,7 @@ resource "null_resource" "setup_dhcp" {
     inline = [
       "set -e",
       "chmod 755 /tmp/config_dns.sh",
+      "echo ${var.dhcp_ip_range_start}",
       "bash -c '/tmp/config_dns.sh -ac ${var.action} -di ${var.dhcp_interface} -dr ${var.dhcp_router_ip} -ds ${var.dhcp_ip_range_start} -de ${var.dhcp_ip_range_end} -dm ${var.dhcp_netmask} -dl ${var.dhcp_lease_time}'",
     ]
   }
