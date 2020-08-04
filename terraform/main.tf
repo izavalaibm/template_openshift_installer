@@ -71,7 +71,7 @@ module "deployVM_infranode" {
   #######
   vsphere_datacenter                 = var.vsphere_datacenter
   vsphere_resource_pool              = var.vsphere_resource_pool
-  vm_ipv4_private_address            = var.infranode_ip
+  vm_ipv4_private_address            = var.infra_private_ipv4_address
   vm_private_ipv4_prefix_length      = var.infra_private_ipv4_prefix_length
   vm_vcpu                            = var.infranode_vcpu
   vm_name                            = var.infranode_hostname
@@ -190,7 +190,7 @@ module "vmware_ign_config" {
   vmwaredatastore          = var.infranode_vm_disk1_datastore
   pullsecret               = var.pullsecret
   proxy_server             = var.proxy_server
-  vm_ipv4_private_address = "${var.infranode_ip}"
+  vm_ipv4_private_address = "${var.infra_private_ipv4_address}"
 }
 
 module "prepare_dns" {
@@ -203,7 +203,7 @@ module "prepare_dns" {
   action         = "setup"
   domain_name    = var.ocp_cluster_domain
   cluster_name   = var.clustername
-  cluster_ip     = var.infranode_ip
+  cluster_ip     = var.infra_private_ipv4_address
 
   ## Access to optional bastion host
   bastion_host        = var.bastion_host
@@ -224,7 +224,7 @@ module "prepare_dhcp" {
   private_key         = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
   action              = "dhcp"
   dhcp_interface      = module.vmware_ign_config.private_interface
-  dhcp_router_ip      = var.infranode_ip
+  dhcp_router_ip      = var.infra_private_ipv4_address
   dhcp_ip_range_start = var.dhcp_ip_range_start
   dhcp_ip_range_end   = var.dhcp_ip_range_end
   dhcp_netmask        = var.dhcp_netmask
@@ -372,7 +372,7 @@ module "set_dns_control" {
   action         = "addMaster"
   domain_name    = var.ocp_cluster_domain
   cluster_name   = var.clustername
-  cluster_ip     = var.infranode_ip
+  cluster_ip     = var.infra_private_ipv4_address
   node_ips       = join(",", module.get_control_ip.control_ip)
   node_names     = join(",", flatten(module.control_plane.name))
   dependsOn      = module.get_control_ip.dependsOn
@@ -519,7 +519,7 @@ module "set_dns_compute" {
   action         = "addWorker"
   domain_name    = var.ocp_cluster_domain
   cluster_name   = var.clustername
-  cluster_ip     = var.infranode_ip
+  cluster_ip     = var.infra_private_ipv4_address
   node_ips       = join(",", module.get_compute_ip.compute_ip)
   node_names     = join(",", flatten(module.compute.name))
   dependsOn      = module.get_compute_ip.dependsOn
@@ -585,7 +585,7 @@ module "config_image_registry" {
   bastion_port        = var.bastion_port
   bastion_host_key    = var.bastion_host_key
   bastion_password    = var.bastion_password
-  nfs_ipv4_address    = var.infranode_ip
+  nfs_ipv4_address    = var.infra_private_ipv4_address
   nfs_path            = "/var/nfs/registry"
   dependsOn           = module.complete_bootstrap.dependsOn
 }
