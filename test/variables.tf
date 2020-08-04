@@ -13,6 +13,7 @@ variable "infra_private_ipv4_prefix_length" {
 }
 
 variable "infranode_ip" {
+  default= "9.46.126.131"
   type = string
 }
 
