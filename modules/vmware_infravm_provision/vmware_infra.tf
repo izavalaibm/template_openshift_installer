@@ -22,6 +22,7 @@ resource "vsphere_virtual_machine" "vm" {
       network_interface {
         ipv4_address = var.vm_ipv4_address
         ipv4_netmask = var.vm_ipv4_prefix_length
+        
       }
 
       ipv4_gateway    = var.vm_ipv4_gateway
@@ -34,6 +35,9 @@ resource "vsphere_virtual_machine" "vm" {
   network_interface {
     network_id   = data.vsphere_network.vm_private_network.id
     adapter_type = var.vm_private_adapter_type
+    mac_address  = "00:50:56:a5:40:33"
+    use_static_mac    = true
+
   }
 
   disk {
@@ -244,6 +248,8 @@ resource "vsphere_virtual_machine" "vm2disk" {
   network_interface {
     network_id   = data.vsphere_network.vm_private_network.id
     adapter_type = var.vm_private_adapter_type
+    mac_address  = "00:50:56:a5:40:33"
+    use_static_mac    = true
   }
 
   disk {
