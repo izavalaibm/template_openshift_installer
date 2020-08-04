@@ -5,7 +5,7 @@ DOMAIN_NAME=$2
 #worker or master
 TYPE=$3
 
-for i in {1..60}
+for i in {1..10}
 do
 	response=`curl -s -o /dev/null -I -w "%{http_code}" -k https://api-int.${CLUSTER_NAME}.${DOMAIN_NAME}:22623/config/${TYPE}`
 	if [ $response != 200 ]; then
