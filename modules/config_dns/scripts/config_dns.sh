@@ -385,6 +385,8 @@ for A_NODE_IP in "${NODEIPARR[@]}"; do
 done
 IFS=',' read -a nodenamearray <<< "${NODE_NAME}"
 echo "IPs to process ${nodeiparray[*]}"
+echo "Starting IP: ${DHCP_IP_START}"
+echo "Ending IP: ${DHCP_IP_END}"
 verifyInputs
 
 ## Default variable values
