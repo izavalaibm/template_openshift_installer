@@ -12,13 +12,13 @@ function gen_key()
 
 function get_installer(){
 	source /etc/profile
-	sudo mkdir -p /installer
-	sudo curl -o /installer/openshift-install-linux-${1}.tar.gz https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${1}/openshift-install-linux-${1}.tar.gz
-    sudo curl -o /installer/openshift-client-linux-${1}.tar.gz https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${1}/openshift-client-linux-${1}.tar.gz
-    sudo tar xzvf /installer/openshift-install-linux-${1}.tar.gz -C /installer
-    sudo tar xzvf /installer/openshift-client-linux-${1}.tar.gz -C /installer
-    sudo mv /installer/oc /installer/kubectl /installer/openshift-install /usr/local/bin/
-    sudo chmod +x /usr/local/bin/oc /usr/local/bin/kubectl /usr/local/bin/openshift-install
+	mkdir -p /installer
+	curl -o /installer/openshift-install-linux-${1}.tar.gz https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${1}/openshift-install-linux-${1}.tar.gz
+    curl -o /installer/openshift-client-linux-${1}.tar.gz https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${1}/openshift-client-linux-${1}.tar.gz
+    tar xzvf /installer/openshift-install-linux-${1}.tar.gz -C /installer
+    tar xzvf /installer/openshift-client-linux-${1}.tar.gz -C /installer
+    mv /installer/oc /installer/kubectl /installer/openshift-install /usr/local/bin/
+    chmod +x /usr/local/bin/oc /usr/local/bin/kubectl /usr/local/bin/openshift-install
 }
 
 function create_ignition_config(){
