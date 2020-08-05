@@ -4,7 +4,7 @@ OPS=${1}
 IFS=',' read -a NODEIPARR <<< "${2}"
 iparray=()
 for A_NODE_IP in "${NODEIPARR[@]}"; do
-        if [[ $A_NODE_IP == "192.168.1"* ]] || [[ $A_NODE_IP == "9.46.126"* ]]; then 
+        if [[ $A_NODE_IP == "9.37.37"* ]] || [[ $A_NODE_IP == "9.46.126"* ]]; then 
                 iparray+=( $A_NODE_IP )
         fi
 done
