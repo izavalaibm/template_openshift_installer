@@ -203,7 +203,7 @@ module "prepare_dns" {
   action         = "setup"
   domain_name    = var.ocp_cluster_domain
   cluster_name   = var.clustername
-  cluster_ip     = "${var.infra_private_ipv4_address}"
+  cluster_ip     = "${var.infranode_ip}"
 
   ## Access to optional bastion host
   bastion_host        = var.bastion_host
@@ -224,7 +224,7 @@ module "prepare_dhcp" {
   private_key         = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
   action              = "dhcp"
   dhcp_interface      = module.vmware_ign_config.private_interface
-  dhcp_router_ip      = "${var.infra_private_ipv4_address}"
+  dhcp_router_ip      = "${var.infranode_ip}"
   dhcp_ip_range_start = var.dhcp_ip_range_start
   dhcp_ip_range_end   = var.dhcp_ip_range_end
   dhcp_netmask        = var.dhcp_netmask
