@@ -203,7 +203,7 @@ module "prepare_dns" {
   action         = "setup"
   domain_name    = var.ocp_cluster_domain
   cluster_name   = var.clustername
-  cluster_ip     = var.infranode_ip
+  cluster_ip     = "${var.infra_private_ipv4_address}"
 
   ## Access to optional bastion host
   bastion_host        = var.bastion_host
@@ -224,7 +224,7 @@ module "prepare_dhcp" {
   private_key         = length(var.infra_private_ssh_key) == 0 ? tls_private_key.generate.private_key_pem : base64decode(var.infra_private_ssh_key)
   action              = "dhcp"
   dhcp_interface      = module.vmware_ign_config.private_interface
-  dhcp_router_ip      = var.infranode_ip
+  dhcp_router_ip      = "${var.infra_private_ipv4_address}"
   dhcp_ip_range_start = var.dhcp_ip_range_start
   dhcp_ip_range_end   = var.dhcp_ip_range_end
   dhcp_netmask        = var.dhcp_netmask
@@ -257,9 +257,9 @@ module "bootstrap" {
   memory                     = var.ocp_boot_vm_memory
   cpu                        = var.ocp_boot_vm_cpu
   disk_size                  = var.ocp_boot_vm_disk_size
-  dependsOn 				 = module.prepare_dhcp.dependsOn
-  instance_type				 = "boot"
-  vm_ipv4_address 			 = var.infranode_ip
+  dependsOn 				         = module.prepare_dhcp.dependsOn
+  instance_type				       = "boot"
+  vm_ipv4_address 			     = var.infranode_ip
   vm_os_private_key_base64   = length(var.infra_private_ssh_key) == 0 ? base64encode(tls_private_key.generate.private_key_pem) : var.infra_private_ssh_key
   vm_os_user                 = var.infranode_vm_os_user
   vm_os_password             = var.infranode_vm_os_password
@@ -269,8 +269,8 @@ module "bootstrap" {
   bastion_port               = var.bastion_port
   bastion_host_key           = var.bastion_host_key
   bastion_password           = var.bastion_password    
-  domain			         = var.ocp_cluster_domain
-  clustername 		         = var.clustername    
+  domain			               = var.ocp_cluster_domain
+  clustername 		           = var.clustername    
 }
 
 module "HAProxy-config-boot" {
@@ -372,7 +372,7 @@ module "set_dns_control" {
   action         = "addMaster"
   domain_name    = var.ocp_cluster_domain
   cluster_name   = var.clustername
-  cluster_ip     = var.infranode_ip
+  cluster_ip     = "${var.infra_private_ipv4_address}"
   node_ips       = join(",", module.get_control_ip.control_ip)
   node_names     = join(",", flatten(module.control_plane.name))
   dependsOn      = module.get_control_ip.dependsOn
