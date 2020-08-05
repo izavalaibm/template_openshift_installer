@@ -68,11 +68,11 @@ variable "wait_for_guest_net_timeout" {
 }
 
 variable "vm_os_password" {
-  type = "string"
+  type = string
   description = "Password for the Operating System User to access virtual machine"
 }
 variable "vm_os_user" {
-  type = "string"
+  type = string
   description = "User for the Operating System User to access virtual machine"
 }
 
@@ -87,17 +87,17 @@ variable "vm_os_private_key_base64" {
 }
 
 variable "domain" {
-  type = "string"
+  type = string
   description = "OCP Base domain name"
 }
 
 variable "clustername" {
-  type = "string"
+  type = string
   description = "OCP Cluster name"
 }
 
 variable "instance_type" {
-  type = "string"
+  type = string
   default = "boot"
 }
 

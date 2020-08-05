@@ -68,13 +68,13 @@ variable "dhcp_router_ip" {
 }
 
 variable "dhcp_ip_range_start" {
-  default     = "9.46.126.133"
+  default     = "10.5.32.129"
   type        = string
   description = "IP address for the start of the DHCP IP address range"
 }
 
 variable "dhcp_ip_range_end" {
-  default     = "9.46.126.139"
+  default     = "10.5.32.190"
   type        = string
   description = "IP address for the end of the DHCP IP address range"
 }
