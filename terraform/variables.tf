@@ -4,7 +4,7 @@ variable "infranode_hostname" {
 
 variable "infra_private_ipv4_address" {
   type    = string
-  default = "192.168.1.1"
+  default = "9.46.126.131"
 }
 
 variable "infra_private_ipv4_prefix_length" {
@@ -207,13 +207,13 @@ variable "pullsecret" {
 }
 
 variable "dhcp_ip_range_start" {
-  default     = "192.168.1.2"
+  default     = "9.46.126.132"
   type        = string
   description = "IP address for the start of the DHCP IP address range"
 }
 
 variable "dhcp_ip_range_end" {
-  default     = "192.168.1.254"
+  default     = "9.46.126.140"
   type        = string
   description = "IP address for the end of the DHCP IP address range"
 }
