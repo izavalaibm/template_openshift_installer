@@ -203,7 +203,7 @@ module "prepare_dns" {
   action         = "setup"
   domain_name    = var.ocp_cluster_domain
   cluster_name   = var.clustername
-  cluster_ip     = "${var.infranode_ip}"
+  cluster_ip     = var.infranode_ip
 
   ## Access to optional bastion host
   bastion_host        = var.bastion_host
@@ -225,10 +225,10 @@ module "prepare_dhcp" {
   action              = "dhcp"
   dhcp_interface      = module.vmware_ign_config.private_interface
   dhcp_router_ip      = "${var.infranode_ip}"
-  dhcp_ip_range_start = var.dhcp_ip_range_start
-  dhcp_ip_range_end   = var.dhcp_ip_range_end
-  dhcp_netmask        = var.dhcp_netmask
-  dhcp_lease_time     = var.dhcp_lease_time
+  dhcp_ip_range_start = "10.5.32.129"
+  dhcp_ip_range_end   = "10.5.32.190"
+  dhcp_netmask        = "255.255.255.192"
+  dhcp_lease_time     = "600"
 
   ## Access to optional bastion host
   bastion_host        = var.bastion_host

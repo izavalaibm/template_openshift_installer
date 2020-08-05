@@ -73,7 +73,7 @@ resource "vsphere_virtual_machine" "vm" {
 	  }	  
       source = "${path.module}/scripts/delete_infra.sh"
       destination = "/tmp/delete_infra.sh"
-      when    = "destroy"
+      when    = destroy
   }   
   
   provisioner "remote-exec" {
