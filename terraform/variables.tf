@@ -218,7 +218,7 @@ variable "dhcp_ip_range_end" {
 }
 
 variable "dhcp_netmask" {
-  default     = "255.255.255.0"
+  default     = "255.255.255.192"
   type        = string
   description = "Netmask used for the DHCP configuration"
 }
