@@ -257,7 +257,7 @@ module "bootstrap" {
   memory                     = var.ocp_boot_vm_memory
   cpu                        = var.ocp_boot_vm_cpu
   disk_size                  = var.ocp_boot_vm_disk_size
-  dependsOn 				         = module.prepare_dhcp.dependsOn
+  dependsOn 				         = module.prepare_dns.dependsOn
   instance_type				       = "boot"
   vm_ipv4_address 			     = var.infranode_ip
   vm_os_private_key_base64   = length(var.infra_private_ssh_key) == 0 ? base64encode(tls_private_key.generate.private_key_pem) : var.infra_private_ssh_key
