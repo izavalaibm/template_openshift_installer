@@ -215,7 +215,7 @@ module "prepare_dns" {
   dependsOn           = module.vmware_ign_config.dependsOn
 }
 
-module "prepare_dhcp" {
+/* module "prepare_dhcp" {
   source = "../modules/config_dns"
   
   dns_server_ip       = var.infranode_ip
@@ -238,7 +238,7 @@ module "prepare_dhcp" {
   bastion_host_key    = var.bastion_host_key
   bastion_password    = var.bastion_password
   dependsOn           = module.prepare_dns.dependsOn
-}
+} */
 
 
 module "bootstrap" {
