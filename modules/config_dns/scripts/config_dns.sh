@@ -283,7 +283,7 @@ function performAction() {
     
     ## Configure DHCP
     if [ "${ACTION}" == "dhcp" ]; then
-        configureDhcp
+        #configureDhcp
 		## Configuration and/or DNS records have been updated; (Re)Start dnsmasq
     	startDnsmasq        
     fi

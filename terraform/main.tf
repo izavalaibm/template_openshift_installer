@@ -215,7 +215,7 @@ module "prepare_dns" {
   dependsOn           = module.vmware_ign_config.dependsOn
 }
 
-/* module "prepare_dhcp" {
+module "prepare_dhcp" {
   source = "../modules/config_dns"
   
   dns_server_ip       = var.infranode_ip
@@ -238,7 +238,7 @@ module "prepare_dns" {
   bastion_host_key    = var.bastion_host_key
   bastion_password    = var.bastion_password
   dependsOn           = module.prepare_dns.dependsOn
-} */
+} 
 
 
 module "bootstrap" {
@@ -257,7 +257,7 @@ module "bootstrap" {
   memory                     = var.ocp_boot_vm_memory
   cpu                        = var.ocp_boot_vm_cpu
   disk_size                  = var.ocp_boot_vm_disk_size
-  dependsOn 				         = module.prepare_dns.dependsOn
+  dependsOn 				         = module.prepare_dhcp.dependsOn
   instance_type				       = "boot"
   vm_ipv4_address 			     = var.infranode_ip
   vm_os_private_key_base64   = length(var.infra_private_ssh_key) == 0 ? base64encode(tls_private_key.generate.private_key_pem) : var.infra_private_ssh_key
